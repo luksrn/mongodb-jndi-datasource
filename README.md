@@ -5,6 +5,7 @@ mongodb-jndi-datasource
 Tested on Tomcat 6 but should work fine on other Java servers with some configuration changes (JDNI datasource declaration).
 
 **Main changes**
+- v5.0 now the resource is defined using the standard format of the MongoDB connection URI used to connect to a MongoDB database server. 
 - v4.0 now is possible to choose the Authentication Mechanism (SCRAM-SHA-1 or MONGODB-CR). Default as SCRAM-SHA-1
 - v3.0 now returns `com.mongodb.client.MongoDatabase` instead of `com.mongodb.DB` (deprecated)
 - v2.0 uses MongoDB java client v3.0.0
@@ -23,23 +24,13 @@ These instructions explain how to bind the datasource (DS) to the Bonita web app
 <Resource name="testMongodbDS"
 	auth="Container"
 	type="com.mongodb.client.MongoDatabase"
-	factory="org.mongodb.datasource.MongoDatasourceFactory"
-	
-	host="localhost"
-	port="27017"
-	
-	databaseName="test"
-	username=""
-	password=""
-	authMechanism=""
-	
-	minPoolSize="10"
-	maxPoolSize="100"
-	maxWaitTime="10000"
+	factory="org.mongodb.datasource.MongoDatasourceFactory"	
+	connectionString="mongodb://host:27017,host2:27017/?replicaSet=rs0"	
+	databaseName="my-database"	 
 />
 ```
 
-**Note:** Remember to update these settings to match your MongoDB settings.
+**Note:** Remember to update these settings to match your MongoDB settings. The 'databaseName' is the database component to indicate which database to work with by default. 
 
 
 ##Usage instructions:
